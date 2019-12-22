@@ -1,0 +1,574 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Tienda Dólar - Backend Developer Jr</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	opacity: 0.5;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif; }
+.mono { font-family: Nitti, 'Microsoft YaHei', '微软雅黑', monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, Nitti, 'Microsoft YaHei', '微软雅黑', monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d0dfb06d-165c-47d6-9619-fd3c3a2d7cdc" class="page sans"><header><img class="page-cover-image" src="Tienda%20D%20lar%20Backend%20Developer%20Jr/Marcas_TD_SVG-07.svg" style="object-position:center 50.86999999999999%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🖊</span></div><h1 class="page-title">Tienda Dólar - Backend Developer Jr</h1></header><div class="page-body"><div id="8709ce17-b424-4732-a3fb-d2e8cca9d4de" class="column-list"><div id="47d8438b-0d56-45d4-8cf3-dc73954a15c0" style="width:50%" class="column"><p id="2fdcc7cd-1ac2-4f43-8855-f72e7eaf8030" class=""><strong>Email consulta:</strong> hiring@tiendadolar.com.ar</p></div><div id="03fd918d-de4d-49fa-b658-58e466977f8e" style="width:50%" class="column"><p id="f4eb9659-15ea-4a52-ae16-70c426c0d7db" class=""><strong>Entrega:</strong> 16/12 23:59hs</p></div></div><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="7ceed0a2-69f9-4c81-bb4e-857a401ee163"><div style="font-size:1.5em"><span class="icon">📌</span></div><div style="width:100%"><strong>Aviso de confidencialidad</strong>. Este documento y la información incluida en él es confidencial y está dirigida únicamente al destinatario.  NO PUBLICAR RESPUESTAS, NI CUALQUIER PARTE DEL CONTENIDO EN UN REPOSITORIO PÚBLICO</div></figure><h1 id="584490ee-c253-4926-83c3-065e1dfb27ae" class="">Ejercicio 1 - API REST</h1><h3 id="00493181-3e42-4ee0-add5-2beffe91b7e5" class="">Tecnología a utilizar</h3><ul id="3cf37225-75dc-45ff-a9d2-3b599fef47fe" class="bulleted-list"><li>Node en cualquier versión superior a la 10.x</li></ul><ul id="ee64b4da-17dc-4002-b9d5-6ce2c3968356" class="bulleted-list"><li>Amazon S3 y aws-sdk</li></ul><ul id="2270a5fe-4340-4d8c-b8f8-523dc19ed694" class="bulleted-list"><li>Express</li></ul><ul id="90b6567e-58dc-4362-b918-9405cceff13a" class="bulleted-list"><li>Cualquier librería que considere necesaria</li></ul><p id="d394a138-dccf-451e-a5c0-944df7686451" class="">
+</p><h3 id="cb4c9996-848d-46c0-a76d-f18089ce21f9" class="">Problema</h3><p id="fde27ceb-eee5-4bdb-afb6-9303b6161115" class="">Zeep Xanflorp, inhabitante del <a href="https://rickandmorty.fandom.com/wiki/Miniverse">Miniverso</a>, le solicita la realización de una API REST que sirva para su próximo proyecto, un e-commerce. Lo único que posee es una base de datos en formato JSON con una serie de productos que ofrece generalmente. </p><p id="7c0ea594-592c-4202-8400-bb9e1f9010cf" class="">
+</p><h3 id="68b6e134-a421-4c10-9242-200a535db961" class="">Acciones pedidas:</h3><ul id="42811a48-215d-45b7-8c94-4522a2f944bc" class="bulleted-list"><li>Obtener el producto más caro</li></ul><ul id="374f8e9f-5ab2-474b-9824-9480a92ca71d" class="bulleted-list"><li>Obtener los 5 productos más baratos</li></ul><ul id="a38fd93e-c99d-4deb-b852-e4998409da0f" class="bulleted-list"><li>Obtener la cantidad de productos por tipo</li></ul><ul id="de43dbc5-c8dc-4088-8942-c4085bee225a" class="bulleted-list"><li>Realizar una compra de un producto<ul id="ab3d6763-4133-4e43-87dc-7a70c32cabf5" class="bulleted-list"><li>Si hay stock, permitir la compra y restar la cantidad comprada</li></ul><ul id="83c46b05-1f71-4365-a1bb-b20765f9d8d1" class="bulleted-list"><li>Si no hay stock, se deberá arrojar un error acorde</li></ul></li></ul><ul id="d7838518-43eb-4794-899d-1fce131d4329" class="bulleted-list"><li>Búsqueda de productos por nombre</li></ul><p id="7c8bf8a3-47e5-459f-bbf5-fe659fae8f8e" class="">
+</p><h3 id="d20f88b9-1ce1-4a45-be98-38e2569d3472" class="">Adicionales</h3><p id="a9195886-fe22-4e96-947b-d83f2dde2117" class="">De manera adicional, se podrán desarrollar cualquiera de los siguientes puntos:</p><p id="f8f19cc8-5009-40b4-85f2-c84c907053d9" class="">
+</p><p id="cedbea8d-b6dd-4465-9ae4-611375294c2a" class=""><strong>Adicional 1 - Compra fortuita</strong></p><p id="70e08651-ad19-4e9b-b72c-bbae1a740477" class="">A los inhabitantes del microverso les gusta mucho los juegos de azar. Es por esto que se solicita que cuando alguien realice una compra de cualquier producto con un stock superior a 3 unidades, tenga una determinada chance de ganar. Además, la probabilidad de ganar debe aumentar conforme aumenta la cantidad de productos que compra un cliente; Es decir, si una persona compra 10 productos tiene que tener más chances de ganar que aquella que compra una cantidad inferior.</p><p id="0a770456-55c9-45bd-8a63-66063e57001a" class="">
+</p><p id="e0e3bc7d-bebf-4ea0-894d-92a1f74747c1" class=""><strong>Adicional 2 - Recomendaciones</strong></p><p id="d026a773-0e84-4575-b2b4-8744c8f1a648" class="">Recomendar productos a los clientes en función de aquellos que llevan comprados.</p><p id="a6fcdec7-4a01-4e71-8980-c101f4012830" class="">
+</p><p id="769e3682-9a16-47d3-b145-abc045b88947" class=""><strong>Adicional 3 - Creación de producto</strong></p><p id="bab6c8f5-4e8a-4b6d-9290-5b82991b841c" class="">Permitir el agregado de productos al sistema.</p><p id="83eed48c-3333-4dba-83e8-42e1af383355" class="">
+</p><h3 id="26b3e64b-3e8e-4229-bb85-81bc1ac9c583" class="">Información de la base de datos</h3><p id="ed5edd53-681e-4a54-be6e-c3ef0f902fc7" class="">El sistema deberá contar con una función de inicialización de donde se descargará la última versión de la base de datos. La misma se encuentra subida en un bucket privado de S3 y se puede acceder con los siguientes valores:</p><p id="c545e596-d84e-4e77-b9b8-f7606c29e179" class="">
+</p><p id="54754a12-6484-4444-9d58-79ac8a4e56f6" class=""><strong>Bucket name</strong>: products.database.microverse</p><p id="9609dc6c-67d6-448e-a613-9cb7dad204b9" class=""><strong>Object key: </strong>db.json</p><p id="14ebf616-5ede-449b-8f7d-965304793e8e" class=""><strong>Claves de acceso (b64): </strong><mark class="highlight-orange">a2V5X2lkOiBBS0lBNDRYT002QkJBRkdONUxMWAprZXlfc2VjcmV0OiBEUHh5bjVvNGtUclpvVEltT1VjUDJ6TlUzTGNFclJzdUkxMEwraDBpCnJlZ2lvbjogc2EtZWFzdC0x</mark></p><p id="bd4b0188-fb40-4ff7-bd93-b687e4774705" class="">
+</p><p id="4c4348b2-1cc0-46e8-9f2f-b0dd62a7ad7b" class="">AKIA44XOM6BBFWQFMJ6J</p><p id="10b53993-524c-4a32-824a-924a1a11a9c3" class="">eIzzP9pIlbixe3yNSjfC2hOiN4YMnBBT/X3kxeNQ</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="e15fce59-d752-4dc5-ba9b-b5d9bc33a514"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%">En todos los casos, se solicita utilizar el método HTTP que corresponda, junto a un status de retorno apropiado. Tener en cuenta que los valores devueltos, se utilizarán para la construcción de una webapp, por lo que se pide que el modelo de datos sea fácilmente interpretable.</div></figure></div></article></body></html>
