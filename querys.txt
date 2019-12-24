@@ -1,0 +1,64 @@
+1. Obtener el producto más caro -- GET
+db.getCollection("products").find({}).sort(
+    { 
+        "price" : -1.0
+    }
+).limit(1);
+
+2. Obtener los 5 productos más baratos -- GET
+db.getCollection("products").find({}).sort(
+    { 
+        "price" : 1.0
+    }
+).limit(5);
+
+3. Obtener la cantidad de productos por tipo -- GET
+db.getCollection("products").aggregate(
+    [
+        { 
+            "$group" : {
+                "_id" : {
+                    "type" : "$type"
+                }, 
+                "COUNT(*)" : {
+                    "$sum" : NumberInt(1)
+                }
+            }
+        }, 
+        { 
+            "$project" : {
+                "COUNT(*)" : "$COUNT(*)", 
+                "type" : "$_id.type", 
+                "_id" : NumberInt(0)
+            }
+        }
+    ], 
+    { 
+        "allowDiskUse" : true
+    }
+);
+
+4. Realizar una compra de un producto -- POST
+** obtengo la cantidad de stock
+db.getCollection("products").find(
+    { 
+        "$text" : {
+            "$search" : "texto"
+        }
+    }, 
+    { 
+        "stock" : 1.0
+    }
+);
+    -    Si hay stock, permitir la compra y restar la cantidad comprada
+db.getCollection("products").update({ 
+        "$text" : {
+            "$search" : "texto"
+        }
+    },{$set:{'stock':-1}})
+
+    -    Si no hay stock, se deberá arrojar un error acorde
+** Si es 0, devolver mensaje
+
+5. Búsqueda de productos por nombre -- GET
+db.getCollection("products").find({ $text: { $search: "texto"}})

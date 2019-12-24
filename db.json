@@ -1,0 +1,126 @@
+{"products": [{
+      "title": "Microverse Battery",
+      "type": "power_source",
+      "price": 28.1,
+      "stock": 3
+    }, {
+      "title": "Mega seed",
+      "type": "organic",
+      "price": 29.45,
+      "stock": 3
+    }, {
+      "title": "Portal gun",
+      "type": "weapon",
+      "price": 18.95,
+      "stock": 3
+    }, {
+      "title": "Mr. Meeseeks box",
+      "type": "weapon",
+      "price": 17.68,
+      "stock": 3
+    }, {
+      "title": "Death crystal",
+      "price": 17.11,
+      "stock": 5
+    }, {
+      "title": "Blemflarck",
+      "type": "misc",
+      "price": 11.14,
+      "stock": 3
+    }, {
+      "title": "Pesto with basil",
+      "type": "oranic",
+      "price": 18.19,
+      "stock": 3
+    }, {
+      "title": "Hazelnut in metal bowl",
+      "type": "organic",
+      "price": 27.35,
+      "stock": 3
+    }, {
+      "title": "Broken leg serum",
+      "type": "misc",
+      "price": 28.59,
+      "stock": 0
+    }, {
+      "title": "Neutrino bomb",
+      "type": "power_source",
+      "price": 15.79,
+      "stock": 3
+    }, {
+      "title": "Cognition amplifier",
+      "type": "power_source",
+      "price": 17.48,
+      "stock": 3
+    }, {
+      "title": "Legums",
+      "type": "organic",
+      "price": 14.77,
+      "stock": 3
+    }, {
+      "title": "Freeze ray",
+      "type": "weapon",
+      "price": 16.3,
+      "stock": 1
+    }, {
+      "title": "Smigden",
+      "type": "misc",
+      "price": 13.02,
+      "stock": 3
+    }, {
+      "title": "Kalaxian crystal",
+      "type": "organic",
+      "price": 28.79,
+      "stock": 0
+    }, {
+      "title": "Laser gun",
+      "type": "weapon",
+      "price": 20.31,
+      "stock": 3
+    }, {
+      "title": "Strawberry jelly",
+      "type": "organic",
+      "price": 14.18,
+      "stock": 10
+    }, {
+      "title": "Space cruiser",
+      "type": "vehicle",
+      "price": 32.08,
+      "stock": 1
+    }, {
+      "title": "Yummy' Yums",
+      "type": "organic",
+      "price": 15.12,
+      "stock": 4
+    }, {
+      "title": "Fleeb",
+      "type": "misc",
+      "price": 16.76,
+      "stock": 3
+    }, {
+      "title": "Oranges",
+      "type": "organic",
+      "price": 21.48,
+      "stock": 100
+    }, {
+      "title": "Purgenol",
+      "type": "organic",
+      "price": 29.66,
+      "stock": 3
+    }, {
+      "title": "Penp Juice",
+      "type": "organic",
+      "price": 22.7,
+      "stock": 3
+    }, {
+      "title": "Honey",
+      "type": "bakery",
+      "price": 17.01,
+      "stock": 3
+    }, {
+    "title": "MortyPad",
+    "type": "misc",
+    "price": 14.05,
+    "stock": 1
+  }
+]}
