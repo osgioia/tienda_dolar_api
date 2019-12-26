@@ -29,11 +29,8 @@ db.getCollection("products").find(
 );
 
     -    Si hay stock, permitir la compra y restar la cantidad comprada
-db.getCollection("products").update({ 
-        "$text" : {
-            "$search" : "texto"
-        }
-    },{$set:{'stock':-1}})
+db.products.update({_id: ObjectId("5e04b61410a9383d50ac872a")},{$set: {"stock":2}})
+
 
     -    Si no hay stock, se deberá arrojar un error acorde
 ** Si es 0, devolver mensaje

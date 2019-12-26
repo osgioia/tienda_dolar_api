@@ -3,7 +3,7 @@ let mongoose = require('mongoose')
 var OrdersSchema = new mongoose.Schema({
     User: Number,
     productID: String,
-    DateTime: Date,
+    createdAt: { type: Date, default: Date.now },
     
     
    

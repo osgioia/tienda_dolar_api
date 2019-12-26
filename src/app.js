@@ -64,7 +64,7 @@ async function UpdateDB () {
 
 app.get('/', function(req, res, next) {
   
-  res.send("I'm a creep, I'm a weirdo.")
+  res.sendFile('index.html', { root: __dirname });
 });
 
 //1. Obtener el producto más caro
@@ -133,7 +133,34 @@ var query = Products.findById(_id)
 
 
 query.exec(function (err, docs) {
-  console.log(docs.stock)
+  if(err)
+      res.status(500).send({ error: 'Producto Inexistente!' })
+  else {
+   // console.log(docs.stock)
+    if (docs.stock > 0) {
+      // registro la compra en la tabla Orders
+      var _compra = new Orders()
+      _compra.User = req.body.User
+      _compra.IdProduct = req.body.IdProduct
+
+      _compra.save(function(err){
+        if (err) throw err; 
+       })
+       // Update al Stock
+       //db.products.update({_id: ObjectId("5e04b61410a9383d50ac872a")},{$set: {"stock":2}})
+       var queryUpdate = Products.findByIdAndUpdate(_id,{$set: {"stock": docs.stock - 1}})
+       
+       queryUpdate.exec(function (err, docs) {
+        //console.log(docs)
+        res.status(200).send({  message:'Operation was Successful' })
+      });
+       
+
+    } 
+    else {
+      res.status(500).send({ error: 'Sin Stock!' })
+    }
+  }
 })
 
 })
