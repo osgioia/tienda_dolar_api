@@ -4,19 +4,18 @@ let Products = require('./ProductsSchema')
 
 var fs=require('fs');
 var data=fs.readFileSync('../db.json', 'utf8');
-var words = JSON.parse(data);
+var _collection = JSON.parse(data);
 
 var i;
-// var DBProduct = new Products(words)
 var _Products = []
                  
- for(i=0;i<words.products.length;++i)
+ for(i=0;i<_collection.products.length;++i)
  {
 
-    _Products.push({'title': words.products[i].title,
-                    'type': words.products[i].type,
-                    'price': words.products[i].price,
-                    'stock':  words.products[i].stock})
+    _Products.push({'title': _collection.products[i].title,
+                    'type': _collection.products[i].type,
+                    'price': _collection.products[i].price,
+                    'stock':  _collection.products[i].stock})
     
  }
 
