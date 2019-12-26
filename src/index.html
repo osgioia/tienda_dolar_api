@@ -115,6 +115,72 @@
     <h6>Devuelve:</h6>  
     <samp>[{"_id":"5e04d24cd16f8343d4742bee","title":"Freeze ray","type":"weapon","price":16.3,"stock":1,"__v":0}]</samp>
 
+     <br>
+     <br>
+     <h5>Adicional 3 - Creación de producto</h5>
+    <p>Metodo POST</p>
+
+
+    <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Parametro</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Ejemplo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>title</td>
+            <td>String</td>
+            <td>Product 1</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>type</td>
+            <td>String</td>
+            <td>misc</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>price</td>
+            <td>Number</td>
+            <td>99.99</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>stock</td>
+            <td>Number</td>
+            <td>3</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br>
+    <h6>Llamada:</h6>
+
+    <pre><code> http://localhost:3000/InsertProduct </code></pre>
+
+    <br>
+    <h6>Devuelve:</h6>  
+
+    <samp>{"message":"Operation was Successful"}</samp>
+
+    <p>o</p>
+
+    <samp>{error: "Sin Stock!"}</samp>
+
+  <br>
+  <br>
+ 
+
+
+
+
+
+
   </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

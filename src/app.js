@@ -178,6 +178,25 @@ app.get('/SearchByName/:title', function(req, res) {
 
 })
 
+// Adicional 3 - Creación de producto
+app.post('/InsertProduct', function(req, res) {
+//title, type, price, stock
+//console.log(req.body)
+  var _product = new Products()
+  _product.title = req.body.title
+  _product.type  = req.body.type
+  _product.price = req.body.price
+  _product.stock = req.body.stock
+
+  _product.save(function(err){
+    if (err) res.status(500).send({ error: 'Error al crear Producto' });
+    else  res.status(200).send({  message:'Operation was Successful' })
+   })
+
+
+})
+  
+
 
 app.listen(3000, function () {
   console.log('App listening on port 3000!');
