@@ -1,118 +1,85 @@
+const express = require("express")
+const fs = require("fs")
+const mongoose = require("mongoose")
+const bodyParser = require("body-parser")
+const dotenv = require("dotenv");
+let products = require("./models/ProductsSchema")
+let orders = require("./models/OrdersSchema")
 
-let express = require('express')
-//let AWS = require('aws-sdk');
-let mongoose = require('mongoose')
-let Products = require('./ProductsSchema')
-let fs = require('fs')
-let bodyParser  = require("body-parser")
-let Orders = require('./OrdersSchema')
-
-var app = express();
+dotenv.config()
+let app = express()
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 
-/*
-const s3 = new AWS.S3({
-    AccessKeyID: 'AKIA44XOM6BBAFGN5LLX',
-    SecretAccessKey: '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',
-    Region: 'sa-east-1'
+let urlMongo = "";
+
+if (process.env.DB_USER) {
+    urlMongo = `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}?authSource=admin&w=1`;
+} else {
+    urlMongo = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+}
+
+mongoose.set("useCreateIndex", true);
+
+mongoose.connect(urlMongo, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
 });
-*/
-async function UpdateDB () {
-  /*
-  try {
-      const params = {
-        Bucket: 'products.database.microverse',
-        Key: 'db.json' 
-      }
-  
-      const data = await s3.getObject(params).promise();
-  
-      return data.Body.toString('utf-8');
-    } catch (e) {
-      throw new Error(`Could not retrieve file from S3: ${e.message}`)
-    }
-    */
-   var data=fs.readFileSync('../db.json', 'utf8');
-   var _collection = JSON.parse(data);
-   
-   var _Products = []
-                    
-    for(var i=0;i<_collection.products.length;++i)
-    {
-   
-       _Products.push({'title': _collection.products[i].title,
-                       'type': _collection.products[i].type,
-                       'price': _collection.products[i].price,
-                       'stock':  _collection.products[i].stock})
-       
-    }
-   
-    Products.insertMany(_Products,function(err,docs){
-       if(err)
-       return console.error(err)
-     
-      })
-   
 
 
+
+function UpdateDB() {
+ 
+  let data = fs.readFileSync("./db.json", "utf8")
+  let collection = JSON.parse(data)
+
+  let articles = []
+
+  for (let i = 0; i < collection.products.length; ++i) {
+    articles.push({
+      title: collection.products[i].title,
+      type:  collection.products[i].type,
+      price: collection.products[i].price,
+      stock: collection.products[i].stock,
+    })
   }
 
-    UpdateDB(); 
-
-app.get('/', function(req, res, next) {
   
-  res.sendFile('index.html', { root: __dirname });
-});
+  products.insertMany(articles,  (err, docs) => {
+    if (err) return console.error(err)
+  })
+}
+
+ UpdateDB()
+
+app.get("/", (req, res, next) => {
+  res.sendFile("index.html", { root: __dirname })
+})
 
 //1. Obtener el producto más caro
-app.get('/ExpensiveProduct', function(req, res) {
- // Products.find({}).sort({"price" : -1.0}).limit(1)
- var query = Products.find({})
- query.sort({"price" : -1.0})
- query.limit(1)
-
- query.exec(function (err, docs) {
-  //console.log(docs)
-  res.json(docs)
-});
-
+app.get("/expensive_product", async (req, res) => {
+  const product = await products.find({}).sort({ price: -1.0 }).limit(1).exec()
+  
+    res.json(product)
 })
 
 //2. Obtener los 5 productos más baratos
-app.get('/TopCheapProducts', function(req, res) {
-  //Products.find({}).sort{"price" : 1.0}).limit(5);
-  var query = Products.find({})
-  query.sort({"price" : 1.0})
-  query.limit(5)
-
-  query.exec(function (err, docs) {
-    //console.log(docs)
-    res.json(docs)
-  });
-
+app.get("/top_cheap_products", async (req, res) => {
+  const query = await products.find({}).sort({ price: 1.0 }).limit(5).exec()
+  
+    res.json(query)
+  
 })
 
 //3. Obtener la cantidad de productos por tipo
-app.get('/ProductsByType', function(req, res) {
-//Products.aggregate([{"$group" : {"_id" : {"type" : "$type"}, "COUNT(*)" : {"$sum" : NumberInt(1)}}},
-// {"$project" : { "COUNT(*)" : "$COUNT(*)", "type" : "$_id.type", "_id" : NumberInt(0)}}], { "allowDiskUse" : true});
-//[{'$group': {'_id': '$type','count': { '$sum': 1 }}  }]
+app.get("/products_by_type", async (req, res) => {
+  const query = await products.aggregate().group({ _id: "$type", count: { $sum: 1 } }).exec()
 
-
-  var query = Products.aggregate()
-  query.group({'_id': '$type','count':{'$sum':1}})
-
-
-  query.exec(function (err, docs) {
-    //console.log(docs)
-    res.json(docs)
-  });
-
+    res.json(query)
 })
-
 
 /*4. Realizar una compra de un producto
 
@@ -120,84 +87,55 @@ app.get('/ProductsByType', function(req, res) {
 
     Si no hay stock, se deberá arrojar un error acorde
 */
-app.post('/BuyByID', function(req, res) {
-// User, IDProducto, fechahora
- // console.log('POST')
-  //console.log(req.body)
-  //console.log(req.body.User)
-  //console.log(req.body.IdProduct)
 
-// db.getCollection("products").find({"_id" : ObjectId("5e040449f9280c53b4aed10f")}, {"stock" : 1.0});
-var _id = req.body.IdProduct
-var query = Products.findById(_id)
+app.post("/buy_by_id", async (req, res) => {
+  const _id = req.body.product_id
+  const query = products.findById(_id)
 
+  await query.exec( (err, docs) => {
+      if (err) res.status(500).send({ error: "Producto Inexistente!" })
+      else {
+        if (docs.stock > 0) {
+          let compra = new orders()
+          compra.user = req.body.user
+          compra.product_id = req.body.product_id
 
-query.exec(function (err, docs) {
-  if(err)
-      res.status(500).send({ error: 'Producto Inexistente!' })
-  else {
-   // console.log(docs.stock)
-    if (docs.stock > 0) {
-      // registro la compra en la tabla Orders
-      var _compra = new Orders()
-      _compra.User = req.body.User
-      _compra.IdProduct = req.body.IdProduct
-
-      _compra.save(function(err){
-        if (err) throw err; 
-       })
-       // Update al Stock
-       //db.products.update({_id: ObjectId("5e04b61410a9383d50ac872a")},{$set: {"stock":2}})
-       var queryUpdate = Products.findByIdAndUpdate(_id,{$set: {"stock": docs.stock - 1}})
-       
-       queryUpdate.exec(function (err, docs) {
-        //console.log(docs)
-        res.status(200).send({  message:'Operation was Successful' })
-      });
-       
-
-    } 
-    else {
-      res.status(500).send({ error: 'Sin Stock!' })
-    }
-  }
-})
-
+          compra.save(function (err) {
+            if (err) throw err
+          })
+          let queryUpdate = products.findByIdAndUpdate(_id, {
+            $set: { stock: docs.stock - 1 },
+          }).exec( (err, docs) => {
+            res.status(200).send({ message: "Operation was Successful" })
+          })
+        } else {
+          res.status(500).send({ error: "Sin Stock!" })
+        }
+      }
+  })
 })
 
 //5. Búsqueda de productos por nombre
-app.get('/SearchByName/:title', function(req, res) {
-  // db.getCollection("products").find({ $text: { $search: "texto"}})
-  //console.log('ID:', req.params.title);
-  var query = Products.find({$text: {$search: req.params.title }})
+app.get("/search_by_name/:title", async (req, res) => {
+  const query = await products.find({ $text: { $search: req.params.title } }).exec()
 
-  query.exec(function (err, docs) {
-    //console.log(docs)
-    res.json(docs)
-  });
-
+    res.json(query)
 })
 
 // Adicional 3 - Creación de producto
-app.post('/InsertProduct', function(req, res) {
-//title, type, price, stock
-//console.log(req.body)
-  var _product = new Products()
-  _product.title = req.body.title
-  _product.type  = req.body.type
-  _product.price = req.body.price
-  _product.stock = req.body.stock
+app.post("/insert_product",  (req, res) => {
+  let product = new products()
+  product.title = req.body.title
+  product.type = req.body.type
+  product.price = req.body.price
+  product.stock = req.body.stock
 
-  _product.save(function(err){
-    if (err) res.status(500).send({ error: 'Error al crear Producto' });
-    else  res.status(200).send({  message:'Operation was Successful' })
-   })
-
-
+  product.save( (err) => {
+    if (err) res.status(500).send({ error: "Error al crear Producto" })
+    else res.status(200).send({ message: "Operation was Successful" })
+  })
 })
-  
 
-
-app.listen(3000, function () {
-  console.log('App listening on port 3000!');
-});
+app.listen(3000, () => {
+  console.log("App listening on port 3000!")
+})

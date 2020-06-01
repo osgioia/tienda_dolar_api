@@ -1,9 +1,12 @@
 let mongoose = require('mongoose')
-let Products = require('./ProductsSchema')
+let Products = require('./models/ProductsSchema')
 
 
-var fs=require('fs');
-var data=fs.readFileSync('../db.json', 'utf8');
+let fs=require('fs');
+let data=fs.readFileSync('./db.json', 'utf8');
+
+console.log(data)
+/*
 var _collection = JSON.parse(data);
 
 var i;
@@ -24,5 +27,6 @@ var _Products = []
     return console.error(err)
   
    })
+*/
 
  
